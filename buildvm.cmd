@@ -25,6 +25,11 @@ GOTO %2
     ECHO Building big sized VM (2cpu x 4g x 50g) %1 / Importing keys / updating files, Stand by...
     multipass launch --name %1 --cpus=2 --mem=4g --disk=50gb %3
     GOTO cleanup
+:huge
+    ECHO Building HUGE sized VM (4cpu x 8g x 50g) %1 / Importing keys / updating files, Stand by...
+    multipass launch --name %1 --cpus=4 --mem=8g --disk=50gb %3
+    GOTO cleanup
+
 
 :cleanup
     multipass exec %1 -- ssh-import-id gh:jfmatth
@@ -39,7 +44,7 @@ GOTO end
     ECHO.
     ECHO buildvm.cmd {name} {size}
     ECHO {name} - name of the VM
-    ECHO {size} - nano(1cpu x 1gb x 25gb), std(1cpu x 2gb x 25gb), big(2cpu x 4gb x 50gb)
+    ECHO {size} - nano(1cpu x 1gb x 25gb) std(1x2x25) big(2x4x50), huge(4x8x50)
     ECHO {version} - Version of Ubuntu to use from "mp find"
     ECHO.
 :end
